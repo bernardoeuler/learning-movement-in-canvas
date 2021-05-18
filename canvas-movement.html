@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas 1 Edit</title>
+    <style>
+        body {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <canvas width="1600" height="900" id="canvas"></canvas>
+
+    <script>
+        // const UP = 38, DOWN = 40, LEFT = 37, RIGHT = 39 // Setas
+        const UP = 87, DOWN = 83, LEFT = 65, RIGHT = 68, SHIFT = 16 // Letras (W,A,S,D)
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        var moveLeft = false, moveRight = false, moveUp = false, moveDown = false, walk = false
+        var p1 = {
+            width: 80,
+            height: 80,
+            x: canvas.width/2,
+            y: canvas.height/2,
+            vel: 10
+        }
+
+        canvas.style.border = "3px solid black";
+        
+    
+
+        update()
+
+        window.addEventListener('keydown', keydownHandler)
+        window.addEventListener('keyup', keyupHandler)
+
+        function keydownHandler(e){
+            var key = e.keyCode
+            if(key === LEFT && key !== RIGHT){
+                moveLeft = true
+            }
+            if(key === RIGHT && key !== LEFT){
+                moveRight = true
+            }
+            if(key === UP && key !== DOWN){
+                moveUp = true
+            }
+            if(key === DOWN && key !== UP){
+                moveDown = true
+            }
+            if(key === SHIFT){
+                walk = true
+            }
+        }
+
+        function keyupHandler(e){
+            var key = e.keyCode
+            if(key === LEFT && key !== RIGHT){
+                moveLeft = false
+            }
+            if(key === RIGHT && key !== LEFT){
+                moveRight = false
+            }
+            if(key === UP && key !== DOWN){
+                moveUp = false
+            }
+            if(key === DOWN && key !== UP){
+                moveDown = false
+            }
+            if(key === SHIFT){
+                walk = false
+            }
+        }
+
+        function move(){
+            if (moveLeft)
+                p1.x -= p1.vel
+
+            if (moveRight)
+                p1.x += p1.vel 
+
+            if (moveUp)
+                p1.y -= p1.vel
+
+            if (moveDown)
+                p1.y += p1.vel
+            
+            // walk ? console.log("andando") : console.log("normal") 
+            walk ? p1.vel = 5 : p1.vel = 10  
+        }
+
+        function render(){
+            ctx.clearRect(0,0,canvas.width,canvas.height)
+            ctx.fillRect(p1.x - p1.width/2, p1.y - p1.height/2, p1.width, p1.height)
+        }
+
+        function update(){
+            requestAnimationFrame(update, canvas)
+            move()
+            render()
+            // console.log(`${moveLeft} e ${moveRight} e o X é ${p1.x}`)
+        }
+    </script>
+</body>
+</html>
