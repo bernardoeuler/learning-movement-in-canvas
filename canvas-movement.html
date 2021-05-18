@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canvas 1 Edit</title>
+    <title>Canvas Animation</title>
     <style>
         body {
             margin: 10px;
@@ -15,8 +15,8 @@
     <canvas width="1600" height="900" id="canvas"></canvas>
 
     <script>
-        // const UP = 38, DOWN = 40, LEFT = 37, RIGHT = 39 // Setas
-        const UP = 87, DOWN = 83, LEFT = 65, RIGHT = 68, SHIFT = 16 // Letras (W,A,S,D)
+        // const UP = 38, DOWN = 40, LEFT = 37, RIGHT = 39 // Descomente para mover usando as setas
+        const UP = 87, DOWN = 83, LEFT = 65, RIGHT = 68, SHIFT = 16 // Mover usando letras (W,A,S,D)
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         var moveLeft = false, moveRight = false, moveUp = false, moveDown = false, walk = false
@@ -88,7 +88,6 @@
             if (moveDown)
                 p1.y += p1.vel
             
-            // walk ? console.log("andando") : console.log("normal") 
             walk ? p1.vel = 5 : p1.vel = 10  
         }
 
@@ -101,7 +100,6 @@
             requestAnimationFrame(update, canvas)
             move()
             render()
-            // console.log(`${moveLeft} e ${moveRight} e o X é ${p1.x}`)
         }
     </script>
 </body>
